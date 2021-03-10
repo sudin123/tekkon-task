@@ -1,5 +1,5 @@
-subscription {
-  newUser {
+query {
+  users {
     _id
     name
     email

@@ -14,8 +14,13 @@ module.exports = gql`
   }
 
   type Mutation {
-    register(name: String!, email: String!, password: String!): User!
-    login(email: String!, password: String!): User!
+    register(
+      name: String
+      email: String
+      password: String
+      password_confirmation: String
+    ): User!
+    login(email: String, password: String): User!
   }
 
   type Subscription {

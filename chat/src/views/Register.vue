@@ -3,26 +3,36 @@
     <div class="hero-body">
       <div class="container has-text-centered">
         <div class="column is-4 is-offset-4">
-          <h3 class="title has-text-black">Login</h3>
+          <h3 class="title has-text-black">Register</h3>
           <hr class="login-hr" />
-          <p class="subtitle has-text-black">Please login to proceed.</p>
+          <p class="subtitle has-text-black">Please register to proceed.</p>
           <div class="box">
             <ApolloMutation
-              :mutation="require('../graphql/login.gql')"
+              :mutation="require('../graphql/register.gql')"
               :variables="{
                 ...formData,
               }"
               class="form"
-              @done="logged"
+              @done="registered"
             >
-              <template slot-scope="{ mutate, error, loading }">
+              <template slot-scope="{ mutate, loading, error }">
                 <span v-if="error">
                   {{ populateErrors(error) }}
                   <p v-if="errorMessage !== null" style="color:red">
                     {{ errorMessage }}
                   </p>
                 </span>
-                <div>
+                <div @keypress.enter="mutate()">
+                  <b-field
+                    :type="`name` in errors ? 'is-danger' : null"
+                    :message="`name` in errors ? errors['name'] : null"
+                  >
+                    <b-input
+                      placeholder="Your Name"
+                      v-model="formData.name"
+                    ></b-input>
+                  </b-field>
+
                   <b-field
                     :type="`email` in errors ? 'is-danger' : null"
                     :message="`email` in errors ? errors['email'] : null"
@@ -33,6 +43,7 @@
                       v-model="formData.email"
                     ></b-input>
                   </b-field>
+
                   <b-field
                     :type="`password` in errors ? 'is-danger' : null"
                     :message="`password` in errors ? errors['password'] : null"
@@ -43,19 +54,28 @@
                       v-model="formData.password"
                     ></b-input>
                   </b-field>
+
+                  <b-field>
+                    <b-input
+                      type="password"
+                      placeholder="Retype password"
+                      v-model="formData.password_confirmation"
+                    ></b-input>
+                  </b-field>
+
                   <b-button
                     :loading="loading"
                     class="button is-block is-info is-large is-fullwidth"
                     @click="mutate()"
                   >
-                    Login <i class="fa fa-sign-in" aria-hidden="true"></i>
+                    Register <i class="fa fa-sign-in" aria-hidden="true"></i>
                   </b-button>
                 </div>
               </template>
             </ApolloMutation>
           </div>
           <p class="has-text-grey">
-            <a @click="$router.push('/register')">Register</a>
+            <a @click="$router.push('/')">Login</a>
           </p>
         </div>
       </div>
@@ -85,9 +105,9 @@ export default {
         this.errorMessage = error.graphQLErrors[0].message;
       }
     },
-    logged(res) {
-      let loggedUser = res.data.login;
-      localStorage.setItem("user", JSON.stringify(loggedUser));
+    registered(res) {
+      let registeredUser = res.data.register;
+      localStorage.setItem("user", JSON.stringify(registeredUser));
       location.reload();
     },
   },

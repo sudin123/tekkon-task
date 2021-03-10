@@ -1,5 +1,18 @@
-mutation register($email: String!, $password: String!, $name: String!) {
-  register(email: $email, password: $password, name: $name) {
+mutation register(
+  $email: String
+  $password: String
+  $name: String
+  $password_confirmation: String
+) {
+  register(
+    email: $email
+    password: $password
+    name: $name
+    password_confirmation: $password_confirmation
+  ) {
+    _id
+    email
     name
+    access_token
   }
 }
