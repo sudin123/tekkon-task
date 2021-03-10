@@ -17,4 +17,8 @@ module.exports = gql`
     register(name: String!, email: String!, password: String!): User!
     login(email: String!, password: String!): User!
   }
+
+  type Subscription {
+    newUser: User!
+  }
 `;

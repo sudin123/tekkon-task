@@ -4,7 +4,12 @@ module.exports = {
     info: () => "Tekkon Simple Chat App task",
     ...userResolvers.Query,
   },
+  
   Mutation: {
-    ...userResolvers.Mutation
-  }
+    ...userResolvers.Mutation,
+  },
+
+  Subscription: {
+    ...userResolvers.Subscription,
+  },
 };

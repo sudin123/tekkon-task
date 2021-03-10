@@ -1,6 +1,8 @@
 "use strict";
+const { PubSub } = require("apollo-server");
+const pubsub = new PubSub();
 
 module.exports = (context) => {
-  context.test_data = "From Context";
+  context.pubsub = pubsub;
   return context;
 };

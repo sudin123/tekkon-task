@@ -2,9 +2,8 @@ const user = require("../../models/user.model");
 
 module.exports = {
   Query: {
-    users: async (_, __, context) => {
+    users: async (_, __, {}) => {
       try {
-        console.log(context.test_data);
         return await user.getUsers();
       } catch (e) {
         throw e;
@@ -16,8 +15,17 @@ module.exports = {
     register: (_, args) => {
       return args;
     },
-    login: (_, args) => {
+    login: (_, args, { pubsub }) => {
+      pubsub.publish("NEW_USER", { newUser: { name: "New User" } });
       return args;
+    },
+  },
+
+  Subscription: {
+    newUser: {
+      subscribe: (_, __, { pubsub }) => {
+        return pubsub.asyncIterator("NEW_USER");
+      },
     },
   },
 };
