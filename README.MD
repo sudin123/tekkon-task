@@ -3,7 +3,7 @@
 Poject Name: Simple Chat Application (Tekkon Task) 
 ** Make sure to have .env file with respective values
 
-## Essential Npm Packages
+## Server Npm Packages
 [graphql](https://graphql.org/)
 GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
 
@@ -15,6 +15,16 @@ Dotenv is a zero-dependency module that loads environment variables from a .env 
 
 [mongoose](https://mongoosejs.com/) 
 Database repository
+
+## Client Npm Packages
+[VueJs](https://vuejs.org/)
+It is a progressive framework for building user interfaces. 
+
+[Vue Apollo](https://apollo.vuejs.org/guide/)
+This library integrates apollo into VueJs
+
+[Bulma](https://bulma.io/)
+Bulma is a free, open source framework that provides ready-to-use frontend components that you can easily combine to build responsive web interfaces.
 
 ## Installation (Server)
 ```bash
@@ -29,3 +39,17 @@ $ npm install
 $ cd server
 $ npm run dev - starts application
 
+
+
+## Installation (Client)
+```bash
+$ cd chat
+$ npm install
+```
+
+## Running the app (Server)
+
+```bash
+# development mode
+$ cd chat
+$ npm run serve - starts application
