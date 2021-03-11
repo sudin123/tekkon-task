@@ -53,11 +53,26 @@ export default {
       user: JSON.parse(localStorage.getItem("user")),
     };
   },
+  created() {
+    this.toggleOnlineStatus(true);
+    window.addEventListener("beforeunload", this.leaving);
+  },
   methods: {
     logout() {
       localStorage.removeItem("user");
       this.$router.replace({ query: {} });
       location.reload();
+    },
+    leaving() {
+      this.toggleOnlineStatus(false);
+    },
+    toggleOnlineStatus(status) {
+      this.$apollo.mutate({
+        mutation: require("../graphql/online_status.gql"),
+        variables: {
+          is_online: status,
+        },
+      });
     },
   },
 };
