@@ -69,4 +69,12 @@ module.exports = {
       throw e;
     }
   },
+
+  async findOneByQuery(query) {
+    try {
+      return await schema.findOne(query);
+    } catch (e) {
+      throw e;
+    }
+  },
 };

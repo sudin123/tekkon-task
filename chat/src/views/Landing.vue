@@ -10,12 +10,6 @@
         </div>
       </div>
       <div class="column " id="message-feed">
-        <nav class=" secondary-navbar">
-          <p style="padding:15px;color:black" class="user-name">
-            Sudin Gurung
-            <span class="dot"></span>
-          </p>
-        </nav>
         <MessagesList />
       </div>
     </div>

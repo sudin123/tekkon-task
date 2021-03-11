@@ -1,16 +1,21 @@
 <template>
   <div class="users" v-if="users">
-    <div class="user" v-for="(user, index) in users" :key="index">
-      <div class="user-info">
+    <div
+      class="user"
+      v-for="(user, index) in users"
+      :key="index"
+      :class="{ 'is-active': user._id == $route.query.i }"
+    >
+      <div class="user-info" @click="chat(user, index)">
         <span
           v-if="user.is_online"
           class="dot"
-          style="margin-right: 10px;background-color:green"
+          style="margin-right: 10px;background-color:#6dae6d"
         ></span>
         <span v-else class="dot" style="margin-right: 10px"></span>
         <span class="user-name">{{ user.name }}</span>
       </div>
-      <span class="unread-message-count">2</span>
+      <!-- <span class="unread-message-count">2</span> -->
     </div>
   </div>
 </template>
@@ -28,9 +33,18 @@ export default {
       },
     },
   },
+  data() {
+    return {};
+  },
   methods: {
     refresh() {
       this.$apollo.queries.users.refetch();
+    },
+    chat(user) {
+      if (`i` in this.$route.query && this.$route.query.i == user._id) {
+        return;
+      }
+      this.$router.replace({ query: { i: user._id } });
     },
   },
 };

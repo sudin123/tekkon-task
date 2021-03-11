@@ -37,6 +37,9 @@ Bulma is a free, open source framework that provides ready-to-use frontend compo
 [Vue Bus](https://www.npmjs.com/package/vue-bus)
 Simple Event Emitter for Vuejs
 
+[Moment](https://www.npmjs.com/package/vue-moment)
+Date parsing library
+
 ## Installation (Server)
 ```bash
 $ cd server

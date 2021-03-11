@@ -4,6 +4,8 @@ module.exports = gql`
   type Query {
     info: String
     users: [User]!
+    chat(user_id: String): Chat!
+    messages(chat_id: String): [Message]!
   }
 
   type User {
@@ -23,9 +25,29 @@ module.exports = gql`
     ): User!
     login(email: String, password: String): User!
     toggleOnlineStatus(is_online: Boolean!): User!
+    sendMessage(user_id: String, message: String, chat_id: String): Message!
   }
 
   type Subscription {
     refreshUsers: User!
+    newMessage: NewMessage!
+  }
+
+  type Chat {
+    _id: String
+    user: User!
+  }
+
+  type Message {
+    chat_id: String
+    message: String
+    created_at: String
+    sender_id: String
+    is_read: Boolean
+  }
+  type NewMessage {
+    sender_id: String
+    to: String
+    message: String
   }
 `;

@@ -1,0 +1,7 @@
+query messages($chat_id: String) {
+  messages(chat_id: $chat_id) {
+    sender_id
+    message
+    created_at
+  }
+}
