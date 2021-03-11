@@ -56,6 +56,7 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem("user");
+      this.$router.replace({ query: {} });
       location.reload();
     },
   },
