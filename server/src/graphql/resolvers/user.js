@@ -6,7 +6,7 @@ module.exports = {
     users: async (_, __, { authUser }) => {
       try {
         checkAuth(authUser);
-        return await user.getUsers(authUser);
+        return await user.getUsers({ _id: { $ne: authUser._id } });
       } catch (e) {
         throw e;
       }
@@ -17,7 +17,7 @@ module.exports = {
     register: async (_, args, { pubsub }) => {
       try {
         let res = await user.createUser(args);
-        pubsub.publish("NEW_USER", { newUser: res });
+        pubsub.publish("REFRESH_USERS", { refreshUsers: {} });
         return res;
       } catch (e) {
         throw e;
@@ -26,7 +26,7 @@ module.exports = {
     login: async (_, args, { pubsub }) => {
       try {
         let res = await user.login(args);
-        pubsub.publish("NEW_USER", { newUser: { name: "New User" } });
+        pubsub.publish("REFRESH_USERS", { refreshUsers: {} });
         return res;
       } catch (e) {
         throw e;
@@ -34,9 +34,10 @@ module.exports = {
     },
     toggleOnlineStatus: async (_, args, { pubsub, authUser }) => {
       try {
-        console.log("trying to toggle online-status");
         checkAuth(authUser);
-        return authUser;
+        let res = await user.update({ _id: authUser._id }, args);
+        pubsub.publish("REFRESH_USERS", { refreshUsers: {} });
+        return res;
       } catch (e) {
         throw e;
       }
@@ -44,9 +45,9 @@ module.exports = {
   },
 
   Subscription: {
-    newUser: {
+    refreshUsers: {
       subscribe: (_, __, { pubsub }) => {
-        return pubsub.asyncIterator("NEW_USER");
+        return pubsub.asyncIterator("REFRESH_USERS");
       },
     },
   },

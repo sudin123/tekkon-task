@@ -28,7 +28,7 @@ const defaultOptions = {
   httpEndpoint,
   httpLinkOptions: {
     headers: {
-      Authorization: user.access_token,
+      Authorization: user !== null ? user.access_token : null,
     },
   },
   // You can use `wss` for secure connection (recommended in production)

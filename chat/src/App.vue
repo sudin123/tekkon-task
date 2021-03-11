@@ -9,34 +9,27 @@ export default {
   data() {
     return {
       users: [],
+      user: JSON.parse(localStorage.getItem("user")),
     };
   },
   created() {
-    this.toggleOnlineStatus();
-    window.addEventListener("beforeunload", this.leaving);
+    if (this.user) {
+      this.toggleOnlineStatus(true);
+      window.addEventListener("beforeunload", this.leaving);
+    }
   },
   methods: {
     leaving() {
-      this.toggleOnlineStatus();
+      this.toggleOnlineStatus(false);
     },
-    toggleOnlineStatus() {
+    toggleOnlineStatus(status) {
       this.$apollo.mutate({
         mutation: require("./graphql/online_status.gql"),
+        variables: {
+          is_online: status,
+        },
       });
     },
-  },
-  mounted() {
-    // let observer = this.$apollo.subscribe({
-    //   query: require("./graphql/new_user.gql"),
-    // });
-    // observer.subscribe({
-    //   next(data) {
-    //     console.log(data);
-    //   },
-    //   error(error) {
-    //     console.error(error);
-    //   },
-    // });
   },
 };
 </script>

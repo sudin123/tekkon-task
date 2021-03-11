@@ -1,5 +1,5 @@
-mutation toggleOnlineStatus {
-  toggleOnlineStatus {
+mutation toggleOnlineStatus($is_online: Boolean!) {
+  toggleOnlineStatus(is_online: $is_online) {
     _id
     email
     name

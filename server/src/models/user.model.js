@@ -49,9 +49,22 @@ module.exports = {
     }
   },
 
-  async getUsers() {
+  async getUsers(query) {
     try {
-      return await schema.find({});
+      return await schema.find(query);
+    } catch (e) {
+      throw e;
+    }
+  },
+
+  /**
+   *
+   * @param {Object} query
+   * @param {Object} inputs
+   */
+  async update(query, updates) {
+    try {
+      return await schema.findOneAndUpdate(query, updates);
     } catch (e) {
       throw e;
     }

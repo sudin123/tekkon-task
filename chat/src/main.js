@@ -10,6 +10,9 @@ import Buefy from "buefy";
 import "buefy/dist/buefy.css";
 Vue.use(Buefy);
 
+import VueBus from 'vue-bus';
+Vue.use(VueBus);
+
 new Vue({
   router,
   store,

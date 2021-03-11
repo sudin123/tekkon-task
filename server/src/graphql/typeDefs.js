@@ -22,10 +22,10 @@ module.exports = gql`
       password_confirmation: String
     ): User!
     login(email: String, password: String): User!
-    toggleOnlineStatus: User!
+    toggleOnlineStatus(is_online: Boolean!): User!
   }
 
   type Subscription {
-    newUser: User!
+    refreshUsers: User!
   }
 `;
