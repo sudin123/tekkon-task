@@ -5,7 +5,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -13,17 +12,23 @@ export default {
     };
   },
   mounted() {
-    let observer = this.$apollo.subscribe({
-      query: require("./graphql/new_user.gql"),
-    });
-    observer.subscribe({
-      next(data) {
-        console.log(data);
-      },
-      error(error) {
-        console.error(error);
-      },
-    });
+    // let observer = this.$apollo.subscribe({
+    //   query: require("./graphql/new_user.gql"),
+    // });
+    // observer.subscribe({
+    //   next(data) {
+    //     console.log(data);
+    //   },
+    //   error(error) {
+    //     console.error(error);
+    //   },
+    // });
   },
 };
 </script>
+
+<style>
+.help {
+  float: left;
+}
+</style>

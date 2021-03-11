@@ -16,6 +16,14 @@ Dotenv is a zero-dependency module that loads environment variables from a .env 
 [mongoose](https://mongoosejs.com/) 
 Database repository
 
+[bcrypt](https://www.npmjs.com/package/bcrypt)
+This library helps to hash password
+
+[jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+An implementation of JSON Web Tokens.
+
+[indicative](https://www.npmjs.com/package/indicative)
+Custom Server Side Validator
 ## Client Npm Packages
 [VueJs](https://vuejs.org/)
 It is a progressive framework for building user interfaces. 
