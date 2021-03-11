@@ -11,6 +11,7 @@ module.exports = gql`
     email: String
     name: String
     access_token: String
+    is_online: Boolean
   }
 
   type Mutation {
@@ -21,6 +22,7 @@ module.exports = gql`
       password_confirmation: String
     ): User!
     login(email: String, password: String): User!
+    toggleOnlineStatus: User!
   }
 
   type Subscription {

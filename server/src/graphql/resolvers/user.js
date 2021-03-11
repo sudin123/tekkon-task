@@ -32,6 +32,15 @@ module.exports = {
         throw e;
       }
     },
+    toggleOnlineStatus: async (_, args, { pubsub, authUser }) => {
+      try {
+        console.log("trying to toggle online-status");
+        checkAuth(authUser);
+        return authUser;
+      } catch (e) {
+        throw e;
+      }
+    },
   },
 
   Subscription: {

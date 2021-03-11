@@ -1,0 +1,8 @@
+mutation toggleOnlineStatus {
+  toggleOnlineStatus {
+    _id
+    email
+    name
+    is_online
+  }
+}

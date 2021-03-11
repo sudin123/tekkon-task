@@ -3,5 +3,6 @@ query {
     _id
     name
     email
+    is_online
   }
 }

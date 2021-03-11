@@ -11,6 +11,20 @@ export default {
       users: [],
     };
   },
+  created() {
+    this.toggleOnlineStatus();
+    window.addEventListener("beforeunload", this.leaving);
+  },
+  methods: {
+    leaving() {
+      this.toggleOnlineStatus();
+    },
+    toggleOnlineStatus() {
+      this.$apollo.mutate({
+        mutation: require("./graphql/online_status.gql"),
+      });
+    },
+  },
   mounted() {
     // let observer = this.$apollo.subscribe({
     //   query: require("./graphql/new_user.gql"),
