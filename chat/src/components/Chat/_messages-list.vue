@@ -145,7 +145,17 @@ export default {
       }
     },
     formattedMessage(message) {
-      return message.replace(/\n/g, "<br />");
+      let formattedMessage = message.replace(/\n/g, "<br />");
+      var urlRegex = /(https?:\/\/[^\s]+)/g;
+      return formattedMessage.replace(urlRegex, function(url) {
+        return (
+          '<a style="color:blue" href="' +
+          url +
+          '" target="_blank">' +
+          url +
+          "</a>"
+        );
+      });
     },
   },
 };
