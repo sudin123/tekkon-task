@@ -10,6 +10,14 @@ import Buefy from "buefy";
 import "buefy/dist/buefy.css";
 Vue.use(Buefy);
 
+import VueBus from "vue-bus";
+Vue.use(VueBus);
+
+Vue.use(require("vue-moment"));
+
+import VueChatScroll from 'vue-chat-scroll'
+Vue.use(VueChatScroll)
+
 new Vue({
   router,
   store,

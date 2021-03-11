@@ -1,0 +1,9 @@
+query chat($user_id: String) {
+  chat(user_id: $user_id) {
+    _id
+    user {
+      name
+      _id
+    }
+  }
+}

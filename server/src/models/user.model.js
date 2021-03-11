@@ -49,10 +49,37 @@ module.exports = {
     }
   },
 
-  async getUsers() {
+  async getUsers(query) {
     try {
-      return await schema.find({});
+      return await schema
+        .find(query)
+        .sort({
+          is_online: "descending",
+        })
+        .lean();
     } catch (e) {
+      throw e;
+    }
+  },
+
+  /**
+   *
+   * @param {Object} query
+   * @param {Object} inputs
+   */
+  async update(query, updates) {
+    try {
+      return await schema.findOneAndUpdate(query, updates);
+    } catch (e) {
+      throw e;
+    }
+  },
+
+  async findOneByQuery(query) {
+    try {
+      return await schema.findOne(query);
+    } catch (e) {
+      console.log(e);
       throw e;
     }
   },

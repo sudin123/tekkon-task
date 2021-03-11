@@ -28,12 +28,17 @@ const defaultOptions = {
   httpEndpoint,
   httpLinkOptions: {
     headers: {
-      Authorization: user.access_token,
+      Authorization: user !== null ? user.access_token : null,
     },
   },
   // You can use `wss` for secure connection (recommended in production)
   // Use `null` to disable subscriptions
   wsEndpoint: process.env.VUE_APP_GRAPHQL_WS || "ws://localhost:5000/graphql",
+  wsEndpointOptions: {
+    headers: {
+      Authorization: user !== null ? user.access_token : null,
+    },
+  },
   // LocalStorage token
   tokenName: "ere",
   // Enable Automatic Query persisting with Apollo Engine

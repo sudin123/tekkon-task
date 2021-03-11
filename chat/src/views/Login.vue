@@ -22,7 +22,7 @@
                     {{ errorMessage }}
                   </p>
                 </span>
-                <div>
+                <div @keypress.enter="mutate()">
                   <b-field
                     :type="`email` in errors ? 'is-danger' : null"
                     :message="`email` in errors ? errors['email'] : null"

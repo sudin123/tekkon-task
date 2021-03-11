@@ -22,7 +22,6 @@ module.exports = {
       };
       return await validator.validateAll(inputs, rules, messages);
     } catch (e) {
-      // throw e
       throw new ValidationError(JSON.stringify(e));
     }
   },
@@ -40,7 +39,40 @@ module.exports = {
       };
       return await validator.validateAll(inputs, rules, messages);
     } catch (e) {
-      // throw e
+      throw new ValidationError(JSON.stringify(e));
+    }
+  },
+
+  async chat(inputs) {
+    try {
+      let rules = {
+        userId: "required",
+        authId: "required",
+      };
+      let messages = {
+        "userId.required": "Insufficient Information",
+        "authId.required": "Insufficient Information",
+      };
+      return await validator.validateAll(inputs, rules, messages);
+    } catch (e) {
+      throw new ValidationError(JSON.stringify(e));
+    }
+  },
+
+  async message(inputs) {
+    try {
+      let rules = {
+        message: "required",
+        sender_id: "required",
+        chat_id: "required",
+      };
+      let messages = {
+        "message.required": "Message is required",
+        "sender_id.required": "Sender Information is requried",
+        "chat_id.required": "Chat Information is required",
+      };
+      return await validator.validateAll(inputs, rules, messages);
+    } catch (e) {
       throw new ValidationError(JSON.stringify(e));
     }
   },

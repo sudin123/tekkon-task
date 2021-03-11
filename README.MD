@@ -34,6 +34,12 @@ This library integrates apollo into VueJs
 [Bulma](https://bulma.io/)
 Bulma is a free, open source framework that provides ready-to-use frontend components that you can easily combine to build responsive web interfaces.
 
+[Vue Bus](https://www.npmjs.com/package/vue-bus)
+Simple Event Emitter for Vuejs
+
+[Moment](https://www.npmjs.com/package/vue-moment)
+Date parsing library
+
 ## Installation (Server)
 ```bash
 $ cd server

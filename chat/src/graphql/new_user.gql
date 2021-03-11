@@ -1,7 +1,0 @@
-subscription {
-  newUser {
-    _id
-    name
-    email
-  }
-}

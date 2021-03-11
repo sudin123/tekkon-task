@@ -1,0 +1,7 @@
+subscription {
+  newMessage {
+    sender_id
+    to
+    message
+  }
+}

@@ -1,0 +1,6 @@
+subscription {
+  isTyping {
+    sender_id
+    receiver_id
+  }
+}
