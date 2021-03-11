@@ -30,7 +30,9 @@ let authenticatedRoutes = [
   {
     path: "*",
     name: "Redirect",
-    component: () => import("../views/Landing.vue"),
+    beforeEnter: (_, __, next) => {
+      next("/");
+    },
   },
 ];
 

@@ -3,7 +3,6 @@
 const { AuthenticationError } = require("apollo-server-errors");
 
 module.exports = (err) => {
-  console.log(err)
   if (process.env.NODE_ENV == "development") {
     throw err;
   }
