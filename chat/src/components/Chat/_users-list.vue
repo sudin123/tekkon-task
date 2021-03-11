@@ -1,8 +1,15 @@
 <template>
   <div class="users" v-if="users">
+    <b-input
+      v-model="search"
+      style="margin-bottom:10px"
+      size="is-small"
+      placeholder="Search users..."
+    ></b-input>
+
     <div
       class="user"
-      v-for="(user, index) in users"
+      v-for="(user, index) in getUsers(search)"
       :key="index"
       :class="{ 'is-active': user._id == $route.query.i }"
       @click="chat(user, index)"
@@ -43,6 +50,7 @@ export default {
   data() {
     return {
       authUser: JSON.parse(localStorage.getItem("user")),
+      search: "",
     };
   },
 
@@ -57,6 +65,15 @@ export default {
   },
 
   methods: {
+    getUsers(search) {
+      if (search.length > 2) {
+        return this.users.filter((user) =>
+          user.name.toLowerCase().match(search.toLowerCase())
+        );
+      }
+      return this.users;
+    },
+
     getUnreadCount(user) {
       for (let i = 0; i < this.chats.length; i++) {
         if (
