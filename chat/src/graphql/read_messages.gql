@@ -1,0 +1,3 @@
+mutation readMessages($chat_id: String) {
+  readMessages(chat_id: $chat_id)
+}

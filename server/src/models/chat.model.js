@@ -27,4 +27,26 @@ module.exports = {
       throw e;
     }
   },
+
+  async getChats(auth) {
+    try {
+      let chats = await schema
+        .find({
+          $or: [{ user1_id: auth._id }, { user2_id: auth._id }],
+        })
+        .populate([
+          {
+            path: "unread_messages_count",
+            match: {
+              sender_id: { $ne: auth._id },
+              is_read: false,
+            },
+          },
+        ])
+        .lean();
+      return chats;
+    } catch (e) {
+      throw e;
+    }
+  },
 };

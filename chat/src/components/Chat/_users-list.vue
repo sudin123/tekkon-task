@@ -16,7 +16,11 @@
         <span v-else class="dot" style="margin-right: 10px"></span>
         <span class="user-name">{{ user.name }}</span>
       </div>
-      <!-- <span class="unread-message-count">2</span> -->
+      <span
+        class="unread-message-count"
+        v-if="chats && getUnreadCount(user) > 0 && $route.query.i !== user._id"
+        >{{ getUnreadCount(user) }}</span
+      >
     </div>
   </div>
 </template>
@@ -25,6 +29,7 @@
 export default {
   apollo: {
     users: require("../../graphql/users.gql"),
+    chats: require("../../graphql/chats.gql"),
     $subscribe: {
       refreshUsers: {
         query: require("../../graphql/refresh_users.gql"),
@@ -34,7 +39,37 @@ export default {
       },
     },
   },
+
+  data() {
+    return {
+      authUser: JSON.parse(localStorage.getItem("user")),
+    };
+  },
+
+  created() {
+    this.$bus.on("refresh-chats", () => {
+      this.$apollo.queries.chats.refetch();
+    });
+  },
+
+  destroyed() {
+    this.$bus.off("refresh-chats");
+  },
+
   methods: {
+    getUnreadCount(user) {
+      for (let i = 0; i < this.chats.length; i++) {
+        if (
+          (this.chats[i].user1_id == user._id &&
+            this.chats[i].user2_id == this.authUser._id) ||
+          (this.chats[i].user2_id == user._id &&
+            this.chats[i].user1_id == this.authUser._id)
+        ) {
+          return this.chats[i].unread_messages_count;
+        }
+      }
+      return 0;
+    },
     refresh() {
       this.$apollo.queries.users.refetch();
     },

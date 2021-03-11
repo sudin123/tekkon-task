@@ -1,0 +1,7 @@
+query {
+  chats {
+    user1_id
+    user2_id
+    unread_messages_count
+  }
+}

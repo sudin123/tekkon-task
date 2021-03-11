@@ -31,7 +31,11 @@
     </div>
 
     <div class="message-input" @keypress.enter="sendMessage">
-      <b-input v-model="message" type="textarea"></b-input>
+      <b-input
+        placeholder="Say Someting ..."
+        v-model="message"
+        type="textarea"
+      ></b-input>
     </div>
   </div>
 </template>
@@ -57,6 +61,9 @@ export default {
                 },
               ],
             ];
+            this.readMessages();
+          } else {
+            this.$bus.emit("refresh-chats");
           }
         },
       },
@@ -89,9 +96,12 @@ export default {
   watch: {
     "$route.query.i": {
       immediate: true,
-      handler(val) {
+      async handler(val) {
         if (val) {
-          this.fetchChat();
+          await this.fetchChat();
+          await this.readMessages();
+          //refreshing chats that will reset unread messages count
+          this.$bus.emit("refresh-chats");
         }
       },
     },
@@ -107,6 +117,14 @@ export default {
     },
   },
   methods: {
+    readMessages() {
+      this.$apollo.mutate({
+        mutation: require("../../graphql/read_messages.gql"),
+        variables: {
+          chat_id: this.chat._id,
+        },
+      });
+    },
     getUsername(message) {
       if (message.sender_id == this.authUser._id) {
         return this.authUser.name;

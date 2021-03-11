@@ -14,7 +14,7 @@ module.exports = {
 
   async get(query) {
     try {
-    //   await validator.fetchChat(query);
+      //   await validator.fetchChat(query);
       //user validation is requried
       return await schema
         .find(query)
@@ -22,6 +22,15 @@ module.exports = {
           created_at: "ascending",
         })
         .lean();
+    } catch (e) {
+      throw e;
+    }
+  },
+
+  async readMessages(query) {
+    try {
+      await schema.updateMany(query, { is_read: true });
+      return true;
     } catch (e) {
       throw e;
     }

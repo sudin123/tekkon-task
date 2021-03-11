@@ -6,7 +6,7 @@ module.exports = {
     users: async (_, __, { authUser }) => {
       try {
         checkAuth(authUser);
-        return await user.getUsers({ _id: { $ne: authUser._id } });
+        return await user.getUsers({ _id: { $ne: authUser._id } }, authUser);
       } catch (e) {
         throw e;
       }

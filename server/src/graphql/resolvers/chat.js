@@ -4,6 +4,15 @@ const { checkAuth } = require("../../utils/checkAuth");
 
 module.exports = {
   Query: {
+    chats: async (_, __, { authUser }) => {
+      try {
+        checkAuth(authUser);
+        return await chat.getChats(authUser);
+      } catch (e) {
+        throw e;
+      }
+    },
+
     chat: async (_, args, { authUser }) => {
       try {
         checkAuth(authUser);
@@ -58,6 +67,15 @@ module.exports = {
       } catch (e) {
         throw e;
       }
+    },
+
+    readMessages: async (_, args, { authUser }) => {
+      checkAuth(authUser);
+      await message.readMessages({
+        ...args,
+        ...{ sender_id: { $ne: authUser._id } },
+      });
+      return true;
     },
   },
 

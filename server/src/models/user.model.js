@@ -49,7 +49,7 @@ module.exports = {
     }
   },
 
-  async getUsers(query) {
+  async getUsers(query, authUser) {
     try {
       return await schema
         .find(query)
@@ -79,6 +79,7 @@ module.exports = {
     try {
       return await schema.findOne(query);
     } catch (e) {
+      console.log(e);
       throw e;
     }
   },

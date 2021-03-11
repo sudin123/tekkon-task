@@ -19,6 +19,14 @@ const schema = new mongoose.Schema(
 
 const collection = "chats";
 var model;
+
+schema.virtual("unread_messages_count", {
+  ref: "messages",
+  localField: "_id",
+  foreignField: "chat_id",
+  count: true,
+});
+
 try {
   model = mongoose.model(schema);
 } catch (e) {

@@ -6,6 +6,7 @@ module.exports = gql`
     users: [User]!
     chat(user_id: String): Chat!
     messages(chat_id: String): [Message]!
+    chats: [Chats!]
   }
 
   type User {
@@ -27,6 +28,7 @@ module.exports = gql`
     toggleOnlineStatus(is_online: Boolean!): User!
     sendMessage(user_id: String, message: String, chat_id: String): Message!
     sendTypingStatus(receiver_id: String): TypingStatus!
+    readMessages(chat_id: String): Boolean
   }
 
   type Subscription {
@@ -38,6 +40,12 @@ module.exports = gql`
   type Chat {
     _id: String
     user: User!
+  }
+
+  type Chats {
+    user1_id: String
+    user2_id: String
+    unread_messages_count: Int
   }
 
   type Message {
