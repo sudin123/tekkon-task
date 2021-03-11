@@ -10,6 +10,32 @@
         </div>
       </div>
       <div class="column " id="message-feed">
+        <nav
+          class="navbar secondary-navbar"
+          role="navigation"
+          aria-label="main navigation"
+        >
+          <div class="navbar-brand">
+            <p style="padding:15px;color:black" class="user-name">
+              {{ $route.query.n }}
+            </p>
+          </div>
+
+          <div class="navbar-menu">
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <p style="padding:15px;color:black" class="user-name">
+                  Logged in as {{ user.name }}
+                </p>
+                <div class="buttons">
+                  <a @click="logout()" class="button is-light">
+                    Log Out
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
         <MessagesList />
       </div>
     </div>
@@ -23,7 +49,15 @@ export default {
     MessagesList: () => import("../components/Chat/_messages-list"),
   },
   data() {
-    return {};
+    return {
+      user: JSON.parse(localStorage.getItem("user")),
+    };
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("user");
+      location.reload();
+    },
   },
 };
 </script>

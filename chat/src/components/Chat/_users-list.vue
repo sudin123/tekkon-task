@@ -33,9 +33,6 @@ export default {
       },
     },
   },
-  data() {
-    return {};
-  },
   methods: {
     refresh() {
       this.$apollo.queries.users.refetch();
@@ -44,8 +41,22 @@ export default {
       if (`i` in this.$route.query && this.$route.query.i == user._id) {
         return;
       }
-      this.$router.replace({ query: { i: user._id } });
+      this.$router.replace({ query: { i: user._id, n: user.name } });
     },
+  },
+  updated() {
+    if (this.users.length > 0 && !(`i` in this.$route.query)) {
+      this.$router.replace({
+        query: { i: this.users[0]._id, n: this.users[0].name },
+      });
+    }
+    if (this.users.length == 0) {
+      this.$buefy.dialog.alert({
+        title: "No Users",
+        message: "There are no other users to chat with",
+        confirmText: "Cool!",
+      });
+    }
   },
 };
 </script>

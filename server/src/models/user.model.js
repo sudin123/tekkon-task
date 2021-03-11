@@ -51,7 +51,12 @@ module.exports = {
 
   async getUsers(query) {
     try {
-      return await schema.find(query);
+      return await schema
+        .find(query)
+        .sort({
+          is_online: "descending",
+        })
+        .lean();
     } catch (e) {
       throw e;
     }

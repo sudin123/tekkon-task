@@ -31,7 +31,7 @@
     </div>
 
     <div class="message-input" @keypress.enter="sendMessage">
-      <b-input v-model="message" maxlength="200" type="textarea"></b-input>
+      <b-input v-model="message" type="textarea"></b-input>
     </div>
   </div>
 </template>
@@ -166,6 +166,11 @@ export default {
         ];
         this.message = "";
       } catch (e) {
+        this.$buefy.dialog.alert({
+          title: "Error",
+          message: "Something went wrong. Please try again later",
+          confirmText: "Cool!",
+        });
         //eslint-disable
       }
     },
