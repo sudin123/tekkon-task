@@ -49,7 +49,7 @@ module.exports = {
     }
   },
 
-  async getUsers(query, authUser) {
+  async getUsers(query) {
     try {
       return await schema
         .find(query)
