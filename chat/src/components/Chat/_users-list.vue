@@ -5,8 +5,9 @@
       v-for="(user, index) in users"
       :key="index"
       :class="{ 'is-active': user._id == $route.query.i }"
+      @click="chat(user, index)"
     >
-      <div class="user-info" @click="chat(user, index)">
+      <div class="user-info">
         <span
           v-if="user.is_online"
           class="dot"
