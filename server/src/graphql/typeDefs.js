@@ -26,11 +26,13 @@ module.exports = gql`
     login(email: String, password: String): User!
     toggleOnlineStatus(is_online: Boolean!): User!
     sendMessage(user_id: String, message: String, chat_id: String): Message!
+    sendTypingStatus(receiver_id: String): TypingStatus!
   }
 
   type Subscription {
     refreshUsers: User!
     newMessage: NewMessage!
+    isTyping: TypingStatus!
   }
 
   type Chat {
@@ -49,5 +51,10 @@ module.exports = gql`
     sender_id: String
     to: String
     message: String
+  }
+
+  type TypingStatus {
+    sender_id: String
+    receiver_id: String
   }
 `;

@@ -45,12 +45,31 @@ module.exports = {
         throw e;
       }
     },
+    sendTypingStatus: (_, args, { authUser, pubsub }) => {
+      try {
+        checkAuth(authUser);
+        pubsub.publish("TYPING_STATUS", {
+          isTyping: {
+            sender_id: authUser._id,
+            receiver_id: args.receiver_id,
+          },
+        });
+        return args;
+      } catch (e) {
+        throw e;
+      }
+    },
   },
 
   Subscription: {
     newMessage: {
       subscribe: (_, __, { pubsub }) => {
         return pubsub.asyncIterator("NEW_MESSAGE");
+      },
+    },
+    isTyping: {
+      subscribe: (_, __, { pubsub }) => {
+        return pubsub.asyncIterator("TYPING_STATUS");
       },
     },
   },

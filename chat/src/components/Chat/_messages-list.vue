@@ -25,8 +25,8 @@
     </div>
 
     <div class="is-typing">
-      <p style="font-style:italic;color:black;padding:12px">
-        Sudin is typing ...
+      <p v-if="isTyping" style="font-style:italic;color:black;padding:12px">
+        {{ chat.user.name }} is typing ...
       </p>
     </div>
 
@@ -42,7 +42,7 @@ export default {
     $subscribe: {
       newMessage: {
         query: require("../../graphql/new_message.gql"),
-        async result({ data }) {
+        result({ data }) {
           if (
             data.newMessage.to == this.authUser._id &&
             data.newMessage.sender_id == this.$route.query.i
@@ -60,6 +60,20 @@ export default {
           }
         },
       },
+      isTyping: {
+        query: require("../../graphql/is_typing.gql"),
+        result({ data }) {
+          if (
+            data.isTyping.sender_id == this.$route.query.i &&
+            data.isTyping.receiver_id == this.authUser._id
+          ) {
+            this.isTyping = true;
+            setTimeout(() => {
+              this.isTyping = false;
+            }, 1000);
+          }
+        },
+      },
     },
   },
   data() {
@@ -69,6 +83,7 @@ export default {
       message: "",
       messages: [],
       authUser: JSON.parse(localStorage.getItem("user")),
+      isTyping: false,
     };
   },
   watch: {
@@ -79,6 +94,16 @@ export default {
           this.fetchChat();
         }
       },
+    },
+    message(val) {
+      if (val.length > 2) {
+        this.$apollo.mutate({
+          mutation: require("../../graphql/send_typing_status.gql"),
+          variables: {
+            receiver_id: this.$route.query.i,
+          },
+        });
+      }
     },
   },
   methods: {
