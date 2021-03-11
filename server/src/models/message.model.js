@@ -14,8 +14,6 @@ module.exports = {
 
   async get(query) {
     try {
-      //   await validator.fetchChat(query);
-      //user validation is requried
       return await schema
         .find(query)
         .sort({
