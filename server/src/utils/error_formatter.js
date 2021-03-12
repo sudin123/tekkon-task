@@ -1,7 +1,5 @@
 "use strict";
 
-const { AuthenticationError } = require("apollo-server-errors");
-
 module.exports = (err) => {
   if (process.env.NODE_ENV == "development") {
     throw err;
@@ -11,7 +9,10 @@ module.exports = (err) => {
    * * hiding detail info for production use
    */
   if (err.extensions.code == "UNAUTHENTICATED") {
-    throw new AuthenticationError("User must be logged in");
+    return err;
+  }
+  if (err.extensions.code == "GRAPHQL_VALIDATION_FAILED") {
+    return err;
   }
   throw new Error("Someting went wrong!");
 };
